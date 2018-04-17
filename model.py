@@ -37,14 +37,9 @@ class Neural_Net(object):
     def compute_cost(self,a,y):
     
         m = y.shape[1] # number of example
-
-    
         logprobs = np.multiply(np.log(a),y) + np.multiply(np.log(1 - a),1 - y)
         cost = - np.sum(logprobs) * (1 / m)
-    
-    
         cost = np.squeeze(cost)     
-    
     
         return cost
 
