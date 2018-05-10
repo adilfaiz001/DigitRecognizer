@@ -9,7 +9,6 @@ Neural Network for digit recognition from mnist dataset
 '''
 import numpy as np
 
-
 class Neural_Net(object):
     
     def __init__(self,sizes):
@@ -101,13 +100,7 @@ class Neural_Net(object):
         
         for i in xrange(L):
             self.W[i] = self.W[i] - learning_rate * dw[i]
-            self.b[i] = self.b[i] - learning_rate * db[i]
-        
-            
-            
-            
-        
-        
+            self.b[i] = self.b[i] - learning_rate * db[i]      
 
 
     def sigmoid(self,z):
@@ -117,7 +110,20 @@ class Neural_Net(object):
     def sigmoid_prime(self,z):
         return self.sigmoid(z)*(1-self.sigmoid(z))
     
+    def L_Layer_model(self,X,Y,learning_rate,iterations):
+        
+        for i in xrange(iterations):
     
+            AL,caches = self.forwardfeed(X)
+
+            cost = self.compute_cost(AL, Y)
+
+            grads=self.backwardpropagation(X, Y, caches)
+
+            self.update_parameters(grads,learning_rate)
+
+
+
 
 '''
 nn=Neural_Net([2,3,1])

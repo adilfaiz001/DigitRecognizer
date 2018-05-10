@@ -18,12 +18,15 @@ def load_data():
     training_data=(train_x,train_y)   
     
     
-    validation_inputs = [np.reshape(x, (784, 1)) for x in va_d[0]]
-    validation_data = zip(validation_inputs, va_d[1])
+    val_x,val_y=va_d
+    val_y = np.array(np.squeeze([vectorized_result(y) for y in val_y], axis=0))
     
+    validation_data = (val_x,val_y)
     
-    test_inputs = [np.reshape(x, (784, 1)) for x in te_d[0]]
-    test_data = zip(test_inputs, te_d[1])
+    test_x,test_y = te_d
+    test_y = np.array(np.squeeze([vectorized_result(y) for y in test_y],axis=0))
+    
+    test_data = (test_x,test_y)
     
     return (training_data,validation_data,test_data)
   
