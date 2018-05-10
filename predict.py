@@ -40,7 +40,7 @@ def softmax(x):
 
 def pred(dist):
     dist=dist.astype(float)
-    if x.ndim==1:
+    if dist.ndim==1:
         index=np.argmax(dist, axis=0)
         for i in xrange(10):
             if i == index:
@@ -69,14 +69,21 @@ def accuracy(y_true,y_pred):
     return t/y_true.shape[1]
 
 
+
+
 from load_data import load_data
 train_set,valid_set,test_set=load_data()
 x,y=valid_set
 X=x.T
 Y=y.T
+
+'''
 with open("parameters.pk", 'rb') as fi:
     parameters = pickle.load(fi)
     
 Y_pred=predict(parameters, X)
-print X.shape
-print accuracy(Y,Y_pred)
+
+num = np.argmax(Y_pred[:,1520],axis=0)
+num_true= np.argmax(Y[:,1520],axis=0)
+print "Predict Number:",num,"\nTure Number:",num_true
+'''
