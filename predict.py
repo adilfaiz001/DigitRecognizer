@@ -3,6 +3,10 @@ Created on May 10, 2018
 
 @author: adil
 '''
+
+'''
+Prediction and accuracy calculation for the model. 
+'''
 import numpy as np
 import pickle
 
@@ -17,6 +21,10 @@ def predict(parameters,X):
     act=softmax(act)
     Y_pred=pred(act)
     return Y_pred
+
+
+
+
         
 def sigmoid(z):
         return 1/(1+np.exp(-z)) 

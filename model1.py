@@ -5,7 +5,8 @@ Created on Apr 13, 2018
 '''
 
 '''
-Neural Network for digit recognition from mnist dataset 
+General model of neural network for training over mnist dataset.
+Neural Network for digit recognition from mnist dataset. 
 '''
 import numpy as np
 
@@ -109,6 +110,12 @@ class Neural_Net(object):
     
     def sigmoid_prime(self,z):
         return self.sigmoid(z)*(1-self.sigmoid(z))
+    
+    def relu(self,z):
+        return z * (z > 0)
+
+    def relu_prime(self,z):
+        return 1. * (z > 0)
     
     def L_Layer_model(self,X,Y,learning_rate,iterations):
         

@@ -19,12 +19,12 @@ def app(X):
     print "Number - ",np.squeeze(num) 
     
 
-image=cv2.imread("sample.png") 
+image=cv2.imread("sample2.jpg") 
 image= cv2.cvtColor(image, cv2.COLOR_RGB2GRAY )
 
-
+print image.shape
 r= 28.0 / image.shape[1]                    # take care of aspect ration while resizing an image along height or width 
-dim = (28,int(image.shape[0] * r))
+dim = (28,28)
 
 image = cv2.resize(image,dim,interpolation = cv2.INTER_AREA)
 
@@ -36,7 +36,7 @@ for i in xrange(M):
 
 m=float(np.max(image))
 image=np.divide(image,m)
-
+print image.shape
 image=np.reshape(image,[784,1])
 
 app(image)

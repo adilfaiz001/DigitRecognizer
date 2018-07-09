@@ -3,6 +3,13 @@ Created on Apr 13, 2018
 
 @author: adil
 '''
+
+'''
+Load MNIST dataset and extract into training,validation and test datasets.
+Convert labels into vectorized form.
+'''
+
+
 import numpy as np 
 import gzip
 import pickle
