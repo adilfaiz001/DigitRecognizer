@@ -90,8 +90,10 @@ with open("parameters.pk", 'rb') as fi:
     parameters = pickle.load(fi)
     
 Y_pred=predict(parameters, X)
+print accuracy(Y,Y_pred)
 
 num = np.argmax(Y_pred[:,1520],axis=0)
 num_true= np.argmax(Y[:,1520],axis=0)
 print "Predict Number:",num,"\nTure Number:",num_true
 '''
+

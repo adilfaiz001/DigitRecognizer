@@ -3,6 +3,8 @@ Created on Apr 16, 2018
 
 @author: adil
 '''
+
+
 import numpy as np 
 from load_data import load_data
 from model1 import Neural_Net
