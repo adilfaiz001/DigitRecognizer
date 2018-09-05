@@ -8,6 +8,7 @@ Created on May 10, 2018
 Prediction and accuracy calculation for the model. 
 '''
 import numpy as np
+import pandas as pd
 import pickle
 
 def predict(parameters,X):
@@ -19,17 +20,15 @@ def predict(parameters,X):
         act=sigmoid(z)
         
     act=softmax(act)
-    Y_pred=pred(act)
+    Y_pred=softmax_reg(act)
     return Y_pred
-
-
-
 
         
 def sigmoid(z):
         return 1/(1+np.exp(-z)) 
  
-    
+
+##softmax returning probability of vector    
 def softmax(x):
     x=x.astype(float)
     if x.ndim==1:
@@ -45,8 +44,8 @@ def softmax(x):
     else:
         print("The input array is not 1- or 2-dimensional.")
 
-
-def pred(dist):
+##returning one for max probability and zero for other 
+def softmax_reg(dist):
     dist=dist.astype(float)
     if dist.ndim==1:
         index=np.argmax(dist, axis=0)
@@ -56,6 +55,7 @@ def pred(dist):
             else:
                 dist[i]=0
         return dist
+    
     elif dist.ndim==2:
         M,N=dist.shape
         for n in xrange(N):
@@ -78,22 +78,45 @@ def accuracy(y_true,y_pred):
 
 
 
-
+'''
 from load_data import load_data
 train_set,valid_set,test_set=load_data()
 x,y=test_set
 X=x.T
 Y=y.T
-
+'''
 
 with open("parameters.pk", 'rb') as fi:
     parameters = pickle.load(fi)
-    
+
+
+'''    
 Y_pred=predict(parameters, X)
+print Y_pred
 print accuracy(Y,Y_pred)
+
 
 num = np.argmax(Y_pred[:,1520],axis=0)
 num_true= np.argmax(Y[:,1520],axis=0)
 print "Predict Number:",num,"\nTure Number:",num_true
+'''
 
+df = pd.read_csv('test.csv')
+df = df.values
+X = df.T
+print X.shape
+y_pred = predict(parameters, X)
 
+lst_pred = np.empty((0,2),int)
+
+for col in xrange(1,y_pred.shape[1]+1):
+    
+    l = y_pred[:,col-1]
+    
+    index = np.argmax(l,axis = 0)
+    
+    lst_pred = np.append(lst_pred,[[col,index]], axis = 0)
+    
+dataframe = pd.DataFrame(data = lst_pred,columns = ['ImageId','Label'])
+dataframe = dataframe.set_index('ImageId')
+dataframe.to_csv('test_label.csv')
