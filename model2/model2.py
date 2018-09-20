@@ -312,6 +312,8 @@ class MiniBatch_ANN(object):
                 print "Cost after epoch %i : %f" %(i, cost)
             if print_cost and i % 100 == 0:
                 costs.append(cost) 
+            if i % 9000 == 0 :
+                print i      # to see ending not freezing
         
         
         plt.plot(costs)
