@@ -101,7 +101,7 @@ num_true= np.argmax(Y[:,1520],axis=0)
 print "Predict Number:",num,"\nTure Number:",num_true
 '''
 
-df = pd.read_csv('test.csv')
+df = pd.read_csv('./mnist/test.csv')
 df = df.values
 X = df.T
 print X.shape

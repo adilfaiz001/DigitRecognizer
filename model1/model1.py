@@ -8,6 +8,7 @@ Created on Apr 13, 2018
 General model of neural network for training over mnist dataset.
 Neural Network for digit recognition from mnist dataset. 
 Improvement -Regularization techniques
+
 '''
 
 
