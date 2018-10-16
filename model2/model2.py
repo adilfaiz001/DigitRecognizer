@@ -5,10 +5,10 @@ Created on May 10, 2018
 '''
 
 '''
-NN for mnist dataset with batch gradient and different optimization algorithms 
+ANN for mnist dataset with batch gradient and different optimization algorithms 
 ADAM
 RMSProp
-
+Momentum
 '''
 
 
@@ -17,7 +17,9 @@ import math
 import sklearn 
 import matplotlib.pyplot as plt
 import pickle
-from load_data import load_data
+from load_data import load_dataset
+
+np.seterr(divide='ignore', invalid='ignore')
 
 class MiniBatch_ANN(object):
     
@@ -109,7 +111,12 @@ class MiniBatch_ANN(object):
         
         AL=activation_cache[-1]  
         
-        dA_prev = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
+        try:
+            dA_prev = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
+        except:
+            print "Exception Occured"
+            return 
+        
        
         dz = AL-Y
         
@@ -312,19 +319,19 @@ class MiniBatch_ANN(object):
                 print "Cost after epoch %i : %f" %(i, cost)
             if print_cost and i % 100 == 0:
                 costs.append(cost) 
-            if i % 9000 == 0 :
-                print i      # to see ending not freezing
+            
+            print i      # to see ending not freezing
         
         
         plt.plot(costs)
         plt.ylabel('cost')
-        plt.xlabel('epochs(per 100')
+        plt.xlabel('epochs(per 100)')
         plt.title('Learning rate = '+str(learning_rate))
         plt.show()  
         
         parameters = (self.W,self.b)
         
-        newfile = 'parameters_momentum.pk'
+        newfile = 'parameters_adam.pk'
         with open(newfile, 'wb') as fi:
             pickle.dump(parameters, fi)
         
@@ -340,7 +347,7 @@ X,Y = X.T,Y.T
 
 layers_dims = [784,84,10]
 nn = MiniBatch_ANN(layers_dims)
-nn.model(X, Y, layers_dims,"momentum")
+nn.model(X, Y, layers_dims,"adam")
 
 
 
