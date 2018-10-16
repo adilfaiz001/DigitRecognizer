@@ -5,7 +5,7 @@ Created on Sep 11, 2018
 '''
 
 '''
-CNN model for mnist dataset 
+CNN model for mnist dataset in python from scratch
 
 '''
 
